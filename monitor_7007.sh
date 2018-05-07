@@ -1,14 +1,8 @@
-curl -I 10.10.20.35:7007>header.txt
-status=`awk 'NR==1{print}' header.txt |awk -F " " '{print $2}'`
-if [ ! -s header.txt ];then
-cd /Users/user/ss/7007/
-expect 7007.sh
-rm /Users/user/header.txt
-elif [ "$status" -ne 200 ];then
-cd /Users/user/ss/7007/
-expect 7007.sh
-rm /Users/user/header.txt
+#!/bin/bash
+code_status=`curl -i -m 15 -o /dev/null -s -w %{http_code} 192.168.3.23:7007`
+if [ $code_status -ne 200 ]
+then
+  expect /root/ss/7007.sh
 else
-rm /Users/user/header.txt
-exit 0
+  exit
 fi
