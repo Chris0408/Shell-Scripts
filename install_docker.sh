@@ -32,14 +32,14 @@ esac
 
 ####add mirror path
 systemctl enable docker
-line=`cat /etc/systemd/system/multi-user.target.wants/docker.service|grep "ExecStart=" `
-mirrorURL="ExecStart=/usr/bin/dockerd --registry-mirror=https://registry.docker-cn.com"
-sed -i 's/$line/$mirrorURL/g'  /etc/systemd/system/multi-user.target.wants/docker.service
+### daocloud mirror
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://02e24992.m.daocloud.io
+#line=`cat /etc/systemd/system/multi-user.target.wants/docker.service|grep "ExecStart=" `
+#mirrorURL="ExecStart=/usr/bin/dockerd --registry-mirror=https://registry.docker-cn.com"
+#sed -i 's/$line/$mirrorURL/g'  /etc/systemd/system/multi-user.target.wants/docker.service
 systemctl daemon-reload
 systemctl restart docker
 ps -ef | grep dockerd
-### daocloud mirror
-curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://02e24992.m.daocloud.io
 ##install docker-compose
 curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
