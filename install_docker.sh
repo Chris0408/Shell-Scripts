@@ -14,7 +14,8 @@ case ${CMD} in
 		 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 		 yum makecache fast
 		 yum install -y docker-ce
-      ;;          
+      ;;
+#docker官方建议在生产环境中使用overlay2存储驱动，centos可能需要升级内核版本为4.x后进行配置。
      apt)            
 		apt-get remove docker docker-engine docker.io
 		apt-get update
